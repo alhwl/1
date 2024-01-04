@@ -1,0 +1,29 @@
+import socket
+
+def communicate_with_server(address, commands):
+    with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
+        # Connect to the server
+        sock.connect(address)
+
+        responses = []
+        for command in commands:
+            # Send the command
+            sock.sendall(command.encode())
+
+            # Receive the response
+            response = sock.recv(1024).decode()
+            responses.append(response)
+        return responses
+
+# Server address (localhost and port 10000)
+server_address = ('localhost', 10000)
+
+# Commands to send
+commands = ["USER", "aliensignal", "PASS", "unlockserver", "SEND", "moonbase", "END"]
+
+# Communicating with the server and getting responses
+responses = communicate_with_server(server_address, commands)
+
+# Print the responses
+for response in responses:
+    print(response)
