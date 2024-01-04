@@ -1,4 +1,5 @@
 import http.client
+import json
 
 def find_key():
     for key in range(5500, 5601):
@@ -9,7 +10,10 @@ def find_key():
             response = conn.getresponse()
 
             if response.status == 200:
-                return f"Key: {key}, Response: {response.read().decode()}"
+                data = response.read().decode()
+                json_data = json.loads(data)
+                if json_data.get("success") == "true":
+                    return f"Correct Key Found: {key}"
             
             conn.close()
         except Exception as e:
@@ -17,6 +21,6 @@ def find_key():
 
     return "No valid key found in the given range."
 
-
+# Run the function and print the result
 result = find_key()
 print(result)
