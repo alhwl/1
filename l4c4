@@ -17,6 +17,6 @@ def find_key():
 
     return "No valid key found in the given range."
 
-# Run the function and print the result
+
 result = find_key()
 print(result)
